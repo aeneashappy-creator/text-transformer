@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text Transformer Lab</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #2b2d31;
+  color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 100vh;
+}
+
+.box {
+  padding: 10px;
+  border: 1px solid #444;
+}
+
+textarea {
+  width: 100%;
+  height: 80%;
+  background: #1e1f22;
+  color: white;
+  border: none;
+  padding: 10px;
+  resize: none;
+  font-size: 16px;
+}
+
+#output {
+  white-space: pre-wrap;
+  background: #1e1f22;
+  padding: 10px;
+  height: 80%;
+  overflow: auto;
+}
+
+.controls {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #232428;
+  align-items: center;
+}
+
+button, select {
+  padding: 8px;
+  background: #5865f2;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4752c4;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="box">
+    <h3>Input</h3>
+    <textarea id="input"></textarea>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="box">
+    <h3>Output</h3>
+    <div id="output"></div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button onclick="transform('uwu')">Uwufy 😺</button>
+    <button onclick="transform('formal')">Formal 🎩</button>
+    <button onclick="transform('chaos')">Chaos 🔥</button>
+    <button onclick="transform('short')">Short ✂️</button>
+
+    <select onchange="setFont(this.value)">
+      <option value="discord">Discord</option>
+      <option value="clean">Clean</option>
+      <option value="mono">Mono</option>
+      <option value="fun">Fun</option>
+    </select>
+  </div>
+
+</div>
+
+<script>
+const input = document.getElementById("input");
+const output = document.getElementById("output");
+
+function transform(type) {
+  let text = input.value;
+
+  if (type === "uwu") {
+    text = text
+      .replace(/r|l/g, "w")
+      .replace(/R|L/g, "W") + " uwu";
+  }
+
+  if (type === "formal") {
+    text = "Dear user,\n\n" + text + "\n\nKind regards.";
+  }
+
+  if (type === "chaos") {
+    text = text.split("")
+      .map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase())
+      .join("")
+      + " !!!??? ###";
+  }
+
+  if (type === "short") {
+    text = text.split(" ").slice(0, 5).join(" ") + "...";
+  }
+
+  output.innerText = text;
+}
+
+function setFont(type) {
+  if (type === "discord") {
+    document.body.style.fontFamily =
+      '"Helvetica Neue", Helvetica, Arial, sans-serif';
+  }
+
+  if (type === "clean") {
+    document.body.style.fontFamily =
+      'Arial, sans-serif';
+  }
+
+  if (type === "mono") {
+    document.body.style.fontFamily =
+      '"Courier New", monospace';
+  }
+
+  if (type === "fun") {
+    document.body.style.fontFamily =
+      'Comic Sans MS, cursive';
+  }
+}
+</script>
+
+</body>
+</html>
