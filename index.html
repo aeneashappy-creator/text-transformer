@@ -7,9 +7,9 @@
 <style>
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #2b2d31;
   color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .container {
@@ -46,7 +46,8 @@ textarea {
 .controls {
   grid-column: span 2;
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   padding: 10px;
   background: #232428;
   align-items: center;
@@ -58,6 +59,7 @@ button, select {
   border: none;
   color: white;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 button:hover {
@@ -84,10 +86,17 @@ button:hover {
 
   <!-- CONTROLS -->
   <div class="controls">
+
     <button onclick="transform('uwu')">Uwufy 😺</button>
     <button onclick="transform('formal')">Formal 🎩</button>
-    <button onclick="transform('chaos')">Chaos 🔥</button>
+    <button onclick="transform('chaos')">CHAOS 🔥</button>
     <button onclick="transform('short')">Short ✂️</button>
+
+    <button onclick="transform('robot')">Robot 🤖</button>
+    <button onclick="transform('pirate')">Pirate 🏴‍☠️</button>
+    <button onclick="transform('genz')">Gen Z 🧢</button>
+    <button onclick="transform('reverse')">Reverse 🔁</button>
+    <button onclick="transform('whisper')">Whisper 🤫</button>
 
     <select onchange="setFont(this.value)">
       <option value="discord">Discord</option>
@@ -95,6 +104,7 @@ button:hover {
       <option value="mono">Mono</option>
       <option value="fun">Fun</option>
     </select>
+
   </div>
 
 </div>
@@ -109,22 +119,75 @@ function transform(type) {
   if (type === "uwu") {
     text = text
       .replace(/r|l/g, "w")
-      .replace(/R|L/g, "W") + " uwu";
+      .replace(/R|L/g, "W") + " uwu 😺";
   }
 
   if (type === "formal") {
-    text = "Dear user,\n\n" + text + "\n\nKind regards.";
+    text = "Dear user,\n\n" + text + "\n\nKind regards.\n📩";
   }
 
+  // 🔥 CHAOS MODE (upgraded)
   if (type === "chaos") {
-    text = text.split("")
-      .map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase())
-      .join("")
-      + " !!!??? ###";
+    const emojis = ["🔥","💀","😂","🧠","⚡","👁️","💥","✨","🤖","🌀","👾","💣","🪐"];
+    const ascii = [
+      "(╯°□°）╯︵ ┻━┻",
+      "¯\\_(ツ)_/¯",
+      "༼ つ ◕_◕ ༽つ",
+      "<(o_o<)",
+      "(⌐■_■)",
+      "█▀█ █▄█ ▀█▀"
+    ];
+
+    let chaotic = text
+      .split("")
+      .map(c => {
+        if (Math.random() < 0.25) return emojis[Math.floor(Math.random() * emojis.length)];
+        if (Math.random() < 0.15) return c.toUpperCase();
+        return c;
+      })
+      .join("");
+
+    chaotic += "\n\n" + ascii[Math.floor(Math.random() * ascii.length)];
+    chaotic += "\n" + emojis.sort(() => 0.5 - Math.random()).slice(0, 10).join(" ");
+
+    text = chaotic;
   }
 
   if (type === "short") {
     text = text.split(" ").slice(0, 5).join(" ") + "...";
+  }
+
+  if (type === "robot") {
+    text = text
+      .toUpperCase()
+      .replace(/A/g, "4")
+      .replace(/E/g, "3")
+      .replace(/I/g, "1")
+      .replace(/O/g, "0")
+      + "\n[ SYSTEM ACTIVE ] 🤖";
+  }
+
+  if (type === "pirate") {
+    text = "🏴‍☠️ Arrr!\n" + text
+      .replace(/my/g, "me")
+      .replace(/is/g, "be")
+      + "\n⚓ Yarr!";
+  }
+
+  if (type === "genz") {
+    text = text
+      .replace(/really/g, "fr")
+      .replace(/very/g, "lowkey")
+      .replace(/amazing/g, "no cap amazing")
+      + " 💀 fr fr";
+  }
+
+  if (type === "reverse") {
+    text = text.split("").reverse().join("");
+  }
+
+  if (type === "whisper") {
+    text = text.toLowerCase() + "..." + " 🤫";
   }
 
   output.innerText = text;
@@ -137,18 +200,15 @@ function setFont(type) {
   }
 
   if (type === "clean") {
-    document.body.style.fontFamily =
-      'Arial, sans-serif';
+    document.body.style.fontFamily = "Arial, sans-serif";
   }
 
   if (type === "mono") {
-    document.body.style.fontFamily =
-      '"Courier New", monospace';
+    document.body.style.fontFamily = '"Courier New", monospace';
   }
 
   if (type === "fun") {
-    document.body.style.fontFamily =
-      'Comic Sans MS, cursive';
+    document.body.style.fontFamily = '"Comic Sans MS", cursive';
   }
 }
 </script>
